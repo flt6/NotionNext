@@ -22,7 +22,7 @@ const Hero = props => {
     updateHeaderHeight()
     if (!typed && window && document.getElementById('typed')) {
       loadExternalResource(
-        'https://cdn.jsdelivr.net/npm/typed.js@2.0.12',
+        'https://jsd.cdn.zzko.cn/npm/typed.js@2.0.12',
         'js'
       ).then(() => {
         if (window.Typed) {
