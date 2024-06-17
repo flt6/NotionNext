@@ -12,6 +12,7 @@ const BLOG = {
   APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日间模式 ， dark夜间模式， auto根据时间和主题自动夜间模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
+  TAG_SORT_BY_COUNT: true, // 标签是否按照文章数量倒序排列，文章多的标签排在前。
   IS_TAG_COLOR_DISTINGUISHED:
     process.env.NEXT_PUBLIC_IS_TAG_COLOR_DISTINGUISHED === 'true' || true, // 对于名称相同的tag是否区分tag的颜色
 
@@ -37,6 +38,9 @@ const BLOG = {
   CONTACT_INSTAGRAM: process.env.NEXT_PUBLIC_CONTACT_INSTAGRAM || '', // 您的instagram地址
   CONTACT_BILIBILI: process.env.NEXT_PUBLIC_CONTACT_BILIBILI || '', // B站主页
   CONTACT_YOUTUBE: process.env.NEXT_PUBLIC_CONTACT_YOUTUBE || '', // Youtube主页
+  CONTACT_XIAOHONGSHU: process.env.NEXT_PUBLIC_CONTACT_XIAOHONGSHU || '', // 小红书主页
+  CONTACT_ZHISHIXINGQIU: process.env.NEXT_PUBLIC_CONTACT_ZHISHIXINGQIU || '', // 知识星球
+  CONTACT_WEHCHAT_PUBLIC: process.env.NEXT_PUBLIC_CONTACT_WEHCHAT_PUBLIC || '', // 微信公众号 格式：https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=【xxxxxx】==#wechat_redirect
 
   NOTION_HOST: process.env.NEXT_PUBLIC_NOTION_HOST || 'https://www.notion.so', // Notion域名，您可以选择用自己的域名进行反向代理，如果不懂得什么是反向代理，请勿修改此项
 
@@ -44,10 +48,10 @@ const BLOG = {
 
   IMAGE_COMPRESS_WIDTH: process.env.NEXT_PUBLIC_IMAGE_COMPRESS_WIDTH || 400, // 图片压缩宽度默认值，作用于博客封面和文章内容 越小加载图片越快
   IMAGE_ZOOM_IN_WIDTH: process.env.NEXT_PUBLIC_IMAGE_ZOOM_IN_WIDTH || 1200, // 文章图片点击放大后的画质宽度，不代表在网页中的实际展示宽度
-  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL || '', // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
+  RANDOM_IMAGE_URL: process.env.NEXT_PUBLIC_RANDOM_IMAGE_URL || 'https://bing.img.run/rand.php', // 随机图片API,如果未配置下面的关键字，主页封面，头像，文章封面图都会被替换为随机图片
   RANDOM_IMAGE_REPLACE_TEXT:
     process.env.NEXT_PUBLIC_RANDOM_IMAGE_NOT_REPLACE_TEXT ||
-    'images.unsplash.com', // 触发替换图片的 url 关键字(多个支持用英文逗号分开)，只有图片地址中包含此关键字才会替换为上方随机图片url
+    'unsplash.com', // 触发替换图片的 url 关键字(多个支持用英文逗号分开)，只有图片地址中包含此关键字才会替换为上方随机图片url
   // eg: images.unsplash.com(notion图床的所有图片都会替换),如果你在 notion 里已经添加了一个随机图片 url，恰巧那个服务跑路或者挂掉，想一键切换所有配图可以将该 url 配置在这里
   // 默认下会将你上传到 notion的主页封面图和头像也给替换，建议将主页封面图和头像放在其他图床，在 notion 里配置 link 即可。
 
@@ -57,10 +61,7 @@ const BLOG = {
   FONT_STYLE: process.env.NEXT_PUBLIC_FONT_STYLE || 'font-sans font-light',
   // 字体CSS 例如 https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/style.css
   FONT_URL: [
-    // 'https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/style.css',
-    'https://fonts.googleapis.com/css?family=Bitter&display=swap',
-    'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300&display=swap',
-    'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300&display=swap'
+    'https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-webfont/1.7.0/style.min.css',
   ],
   // 无衬线字体 例如'"LXGW WenKai"'
   FONT_SANS: [
@@ -97,7 +98,7 @@ const BLOG = {
   ],
   FONT_AWESOME:
     process.env.NEXT_PUBLIC_FONT_AWESOME_PATH ||
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', // font-awesome 字体图标地址; 可选 /css/all.min.css ， https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css
+    'https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.2/css/all.min.css', // font-awesome 字体图标地址; 可选 /css/all.min.css ， https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css
 
   // END ************网站字体*****************
 
@@ -200,12 +201,13 @@ const BLOG = {
   POST_SHARE_BAR_ENABLE: process.env.NEXT_PUBLIC_POST_SHARE_BAR || 'true', // 文章分享功能 ，将在底部显示一个分享条
   POSTS_SHARE_SERVICES:
     process.env.NEXT_PUBLIC_POST_SHARE_SERVICES ||
-    'link,wechat,qq,weibo,email,facebook,twitter,telegram,messenger,line,reddit,whatsapp,linkedin', // 分享的服務，按顺序显示,逗号隔开
+    'link,wechat,qq', // 分享的服務，按顺序显示,逗号隔开
   // 所有支持的分享服务：link(复制链接),wechat(微信),qq,weibo(微博),email(邮件),facebook,twitter,telegram,messenger,line,reddit,whatsapp,linkedin,vkshare,okshare,tumblr,livejournal,mailru,viber,workplace,pocket,instapaper,hatena
 
-  POST_URL_PREFIX: process.env.NEXT_PUBLIC_POST_URL_PREFIX || 'article',
+  // 文章URL前缀
+  POST_URL_PREFIX: process.env.NEXT_PUBLIC_POST_URL_PREFIX ?? 'article',
   // POST类型文章的默认路径前缀，例如默认POST类型的路径是  /article/[slug]
-  // 如果此项配置为 '' 空， 则文章将没有前缀路径，使用场景： 希望文章前缀路径为 /post 的情况 支持多级
+  // 如果此项配置为 '' 空， 则文章将没有前缀路径
   // 支援類似 WP 可自訂文章連結格式的功能：https://wordpress.org/documentation/article/customize-permalinks/，目前只先實作 %year%/%month%/%day%
   // 例：如想連結改成前綴 article + 時間戳記，可變更為： 'article/%year%/%month%/%day%'
 
@@ -243,6 +245,13 @@ const BLOG = {
     '90, 135, 255',
     '251, 243, 140'
   ],
+
+  // 鼠标跟随特效
+  MOUSE_FOLLOW: process.env.NEXT_PUBLIC_MOUSE_FOLLOW || true, // 开关
+  // 这两个只有在鼠标跟随特效开启时才生效
+  // 鼠标类型 1：路劲散点 2：下降散点 3：上升散点 4：边缘向鼠标移动散点 5：跟踪转圈散点 6：路径线条 7：聚集散点 8：聚集网格 9：移动网格 10：上升粒子 11：转圈随机颜色粒子 12：圆锥放射跟随蓝色粒子
+  MOUSE_FOLLOW_EFFECT_TYPE: 11, // 1-12
+  MOUSE_FOLLOW_EFFECT_COLOR: '#ef672a', // 鼠标点击特效颜色 #xxxxxx 或者 rgba(r,g,b,a)
 
   // 樱花飘落特效
   SAKURA: process.env.NEXT_PUBLIC_SAKURA || false, // 开关
@@ -339,7 +348,7 @@ const BLOG = {
     process.env.NEXT_PUBLIC_COMMENT_TWIKOO_COUNT_ENABLE || false, // 博客列表是否显示评论数
   COMMENT_TWIKOO_CDN_URL:
     process.env.NEXT_PUBLIC_COMMENT_TWIKOO_CDN_URL ||
-    'https://cdn.staticfile.org/twikoo/1.6.17/twikoo.min.js', // twikoo客户端cdn
+    'https://cdn.staticfile.net/twikoo/1.6.17/twikoo.min.js', // twikoo客户端cdn
 
   // utterance
   COMMENT_UTTERRANCES_REPO:
@@ -449,7 +458,7 @@ const BLOG = {
     process.env.NEXT_PUBLIC_SEO_BAIDU_SITE_VERIFICATION || '', // Remove the value or replace it with your own google site verification code
 
   // 微软 Clarity 站点分析
-  CLARITY_ID: process.env.NEXT_PUBLIC_CLARITY_ID || null, // 只需要复制Clarity脚本中的ID部分，ID是一个十位的英文数字组合
+  CLARITY_ID: process.env.NEXT_PUBLIC_CLARITY_ID || 'mjnhpf87gc', // 只需要复制Clarity脚本中的ID部分，ID是一个十位的英文数字组合
 
   // <---- 站点统计
 
@@ -507,7 +516,7 @@ const BLOG = {
   // ANIMATE.css 动画
   ANIMATE_CSS_URL:
     process.env.NEXT_PUBLIC_ANIMATE_CSS_URL ||
-    'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', // 动画CDN
+    'https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css', // 动画CDN
 
   // 网站图片
   IMG_LAZY_LOAD_PLACEHOLDER:
