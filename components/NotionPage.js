@@ -71,8 +71,9 @@ const NotionPage = ({ post, className }) => {
   const zoom =
     typeof window !== 'undefined' &&
     mediumZoom({
-      container: '.notion-viewport',
+      container: '.medium-zoom-overlay',
       background: 'rgba(0, 0, 0, 0.2)',
+      minZoomScale: 2.3,
       margin: getMediumZoomMargin()
     })
   const zoomRef = useRef(zoom ? zoom.clone() : null)
@@ -128,8 +129,8 @@ const NotionPage = ({ post, className }) => {
               // 获取该元素的 src 属性
               const src = mutation?.target?.getAttribute('src')
               //   替换为更高清的图像
-              mutation?.target?.setAttribute('src', compressImage(src, siteConfig('IMAGE_ZOOM_IN_WIDTH', 1200)))
-            }, 800)
+              mutation?.target?.setAttribute('src', compressImage(src, siteConfig('IMAGE_ZOOM_IN_WIDTH', 800)))
+            }, 400)
           }
         }
       })
