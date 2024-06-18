@@ -17,13 +17,13 @@ const NotionPage = ({ post, className }) => {
   // 是否关闭数据库和画册的点击跳转
   // 定义函数时post为underdefined
   // 避免直接删除链接
-  var POST_DISABLE_GALLERY_CLICK = false
-  var POST_DISABLE_DATABASE_CLICK = false
+  let POST_DISABLE_GALLERY_CLICK = false
+  let POST_DISABLE_DATABASE_CLICK = false
   if (post){
     // 只考虑当前post的信息
-    if (post.type!="Notice"){
-      POST_DISABLE_GALLERY_CLICK = siteConfig('POST_DISABLE_GALLERY_CLICK') && post.comment!="ENABLE_GALLERY_CLICK"
-      POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK') && post.comment!="ENABLE_DATABASE_CLICK"
+    if (post.type!=="Notice"){
+      POST_DISABLE_GALLERY_CLICK = siteConfig('POST_DISABLE_GALLERY_CLICK') && post.comment!=="ENABLE_GALLERY_CLICK"
+      POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK') && post.comment!=="ENABLE_DATABASE_CLICK"
     }
   }
 
@@ -134,7 +134,6 @@ const processDisableDatabaseUrl = () => {
  * gallery视图，点击后是放大图片还是跳转到gallery的内部页面
  */
 const processGalleryImg = zoom => {
-  debugger
   setTimeout(() => {
     if (isBrowser) {
       const imgList = document?.querySelectorAll(
