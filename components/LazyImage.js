@@ -56,8 +56,8 @@ export default function LazyImage({
   }
 
   useEffect(() => {
-    let adjustedImageSrc_tmp=adjustImgSize(src, maxWidth) || defaultPlaceholderSrc;
-    const adjustedImageSrc =adjustedImageSrc_tmp.replace("flt6-imgs.oss-cn-beijing.aliyuncs.com","oss.flt6.top");
+    const adjustedImageSrcTmp=adjustImgSize(src, maxWidth) || defaultPlaceholderSrc;
+    const adjustedImageSrc =adjustedImageSrcTmp.replace("flt6-imgs.oss-cn-beijing.aliyuncs.com","oss.flt6.top");
 
     // 加载原图
     const img = new Image()
