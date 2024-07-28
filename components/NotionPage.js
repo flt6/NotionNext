@@ -141,6 +141,10 @@ const processGalleryImg = zoom => {
       )
       if (imgList && zoom) {
         for (let i = 0; i < imgList.length; i++) {
+          console.log(imgList[i].src);
+          if (imgList[i].src.includes(".webp")||imgList[i].src.includes(".gif")){
+            continue;
+          }
           zoom.attach(imgList[i])
         }
       }
