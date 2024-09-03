@@ -21,7 +21,7 @@ const Player = () => {
   const musicMetingEnable = siteConfig('MUSIC_PLAYER_METING')
   const musicMetingCDNUrl = siteConfig(
     'MUSIC_PLAYER_METING_CDN_URL',
-    'https://cdnjs.cloudflare.com/ajax/libs/meting/2.0.1/Meting.min.js'
+    'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/meting/2.0.1/Meting.min.js'
   )
 
   const initMusicPlayer = async () => {
