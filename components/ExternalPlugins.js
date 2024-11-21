@@ -114,7 +114,7 @@ const ExternalPlugin = props => {
   useEffect(() => {
     // 执行注入脚本
     // eslint-disable-next-line no-eval
-    eval(GLOBAL_JS)
+    // eval(GLOBAL_JS)
   }, [])
 
   if (DISABLE_PLUGIN) {
