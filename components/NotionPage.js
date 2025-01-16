@@ -1,6 +1,6 @@
 import { siteConfig } from '@/lib/config'
 import { compressImage, mapImgUrl } from '@/lib/notion/mapImage'
-import { isBrowser } from '@/lib/utils'
+import { isBrowser, loadExternalResource } from '@/lib/utils'
 import mediumZoom from '@fisch0920/medium-zoom'
 import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
@@ -26,6 +26,7 @@ const NotionPage = ({ post, className }) => {
       POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK') && post.comment!=="ENABLE_DATABASE_CLICK"
     }
   }
+  const SPOILER_TEXT_TAG = siteConfig('SPOILER_TEXT_TAG')
 
   const zoom =
     isBrowser &&
@@ -91,6 +92,21 @@ const NotionPage = ({ post, className }) => {
 
     return () => {
       observer.disconnect()
+    }
+  }, [post])
+
+  useEffect(() => {
+    // Spoiler文本功能
+    if (SPOILER_TEXT_TAG) {
+      import('lodash/escapeRegExp').then(escapeRegExp => {
+        Promise.all([
+          loadExternalResource('/js/spoilerText.js', 'js'),
+          loadExternalResource('/css/spoiler-text.css', 'css')
+        ]).then(() => {
+          window.textToSpoiler &&
+            window.textToSpoiler(escapeRegExp.default(SPOILER_TEXT_TAG))
+        })
+      })
     }
   }, [post])
 
@@ -164,7 +180,7 @@ const autoScrollToHash = () => {
   setTimeout(() => {
     // 跳转到指定标题
     const hash = window?.location?.hash
-    const needToJumpToTitle = hash && hash > 0
+    const needToJumpToTitle = hash && hash.length > 0
     if (needToJumpToTitle) {
       console.log('jump to hash', hash)
       const tocNode = document.getElementById(hash.substring(1))
