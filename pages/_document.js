@@ -34,12 +34,6 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <div className="video-container">
-                <video autoPlay loop muted>
-                  <source src="https://oss.flt6.top/imgs/202501231618107.webm" type="video/webm" />
-                  Your browser does not support the video tag.
-                </video>
-          </div>
         </body>
       </Html>
     )
