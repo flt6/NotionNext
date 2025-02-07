@@ -32,5 +32,14 @@
     "**/*.jsx",
     ".eslintrc.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "next-env.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    ".eslintrc.js",
+    "node_modules",
+    "lib",
+    "components",
+    "themes"
+  ],
 }
