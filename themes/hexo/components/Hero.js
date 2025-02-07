@@ -21,6 +21,20 @@ const Hero = props => {
     window.scrollTo({ top: wrapperTop, behavior: 'smooth' })
   }
 
+  const multiHover = siteConfig("MULTI_HOME_BANNER_IMAGE")
+  var cover = null;
+  if (multiHover.length==0){
+    cover = siteInfo?.pageCover;
+  }else{
+    let [_cover, setCover] = useState("");
+    cover = _cover;
+  
+    useEffect(() => {
+      const randomImage = multiHover[Math.floor(Math.random() * multiHover.length)];
+      setCover(randomImage);
+    }, []);
+  }
+
   const GREETING_WORDS = siteConfig('GREETING_WORDS').split(',')
   useEffect(() => {
     updateHeaderHeight()
@@ -90,7 +104,7 @@ const Hero = props => {
       <LazyImage
         id='header-cover'
         alt={siteInfo?.title}
-        src={siteInfo?.pageCover}
+        src={cover}
         className={`header-cover w-full h-screen object-cover object-center ${siteConfig('HEXO_HOME_NAV_BACKGROUND_IMG_FIXED', null, CONFIG) ? 'fixed' : ''}`}
       />
     </header>
